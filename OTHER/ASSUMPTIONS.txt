@@ -1,0 +1,4 @@
+1. When taken in from the file, opcodes when not be considered as blocks.
+	That means that even if there would be gaps between codes due to sections
+	ending and what not, they will be considered as one continuous string.
+

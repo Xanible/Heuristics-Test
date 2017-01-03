@@ -1,0 +1,11 @@
+--Pre Method--
+set up dictionary for whitelister to use
+read in text file representing assembly
+pull opcodes from file
+whitelist opcodes to remove extra stuff
+
+--Method--
+Do the thing to get the thing
+
+--Post Method--
+Do the thing with the thing
