@@ -23,6 +23,7 @@ public class X86Dictionary {
 		}
 		
 		String entry = null;
+		Character first = null;
 		
 		//Loop through text file
 		for(int i = 0;i < 26;i++) {
@@ -32,29 +33,40 @@ public class X86Dictionary {
 					//If so, Read in next line from text file
 					entry = br.readLine();
 				}
-				
-				//Read in next line from text file
-				
+		
 				//Set first letter of entry as current first letter
+				first = entry.charAt(0);
 
+				//Set to loop
 				boolean changeLetter = false;
+				
+				//Initialize next section
 				diction[i] = new ArrayList<String>();
+				System.out.println("SECTION CHANGED");
 				
 				//Add entry to current part of dictionary
+				diction[i].add(entry);
 				
 				//Begin looping through remaining entries
 				while(!changeLetter) {
 					//Read in next entry
-					//check to see if first letters match
+					entry = br.readLine();
+					
+					//Check to see if first letters match
+					if(first != entry.charAt(0)) {
 						//if they do not, set first letter to be changed
+						changeLetter = true;
+					}
+					
+					//If letter isn't changed
 					if(!changeLetter) {
 						//Add entry to current part of dictionary
+						diction[i].add(entry);
 					}
 				}
 			} catch (IOException e) {
 				System.out.println("ERROR READING FROM DICTIONARY TEXT");
 			}
-			
 		}
 		
 	}
