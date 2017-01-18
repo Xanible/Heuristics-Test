@@ -1,10 +1,10 @@
 package x86dictionary;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class X86Dictionary {
 	
@@ -18,7 +18,7 @@ public class X86Dictionary {
 		//Open dictionary text file
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader("C:/Users/Colby/Workspace/Heuristics-Test/OTHER/Dictionary_v3.txt"));
+			br = new BufferedReader(new FileReader("C:/Users/ColbyAdmin/Java-Workspace/Heuristics-Test/OTHER/Dictionary_v3.txt"));
 		} catch (IOException e) {
 			System.out.println("ERROR OPENING DICTIONARY TEXT");
 		}
@@ -102,6 +102,37 @@ public class X86Dictionary {
 	}
 	
 	//Methods
+	public void whiteList(List<String> opCodes) {
+		String current;
+		List<String> whiteListed = new ArrayList<String>();
+		
+		//For loop to go through the given list
+		for(int i = 0; i < opCodes.size(); i++) {
+			//Store the current entry
+			current = opCodes.get(i);
+			System.out.println(current);
+			current =  current.split(" ")[0];
+			System.out.println(current);
+			if(this.inDictionary(current)) {
+				whiteListed.add(current);
+			}
+		}
+		
+		opCodes = whiteListed;
+	}
+	
+	public boolean inDictionary(String word) {
+		//Get the first letter of the word
+		char firstLetter = word.charAt(0);
+		System.out.println(firstLetter);
+		
+		//Search the appropriate section for the word
+		if(this.diction[firstLetter - 'a'].contains(word)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 }
