@@ -10,8 +10,7 @@ public class X86Dictionary {
 	
 	//Variables
 	@SuppressWarnings("unchecked")
-	ArrayList<String>[] diction = (ArrayList<String>[])new ArrayList[26];
-	
+	public ArrayList<String>[] diction = (ArrayList<String>[])new ArrayList[26];
 	
 	//Constructor
 	public X86Dictionary() {
@@ -28,7 +27,7 @@ public class X86Dictionary {
 		boolean changeLetter = false;
 		
 		//Loop through text file
-		for(int i = 0;i < 25;i++) {
+		for(int i = 0;i < 26;i++) {
 			try {
 				// Check if current entry is null
 				if(entry == null || entry.length() == 0) {
@@ -47,7 +46,7 @@ public class X86Dictionary {
 					first++;
 					
 					//See if first letters match now
-					if(first == entry.charAt(0)) {
+					if(first == entry.charAt(0)) {				
 						//Set to loop
 						changeLetter = false;
 
@@ -69,11 +68,12 @@ public class X86Dictionary {
 				while(!changeLetter) {
 					//Read in next entry
 					entry = br.readLine();
-					
+				
 					//Check for end
 					if(entry == null || entry.length() == 0) {
 						//Finish incrementing remaining empty loops
-						for(;i < 25;i++) {
+						i++;
+						for(;i < 26;i++) {
 							first++;
 							
 							//Initialize next section
@@ -102,7 +102,7 @@ public class X86Dictionary {
 	}
 	
 	//Methods
-	public void whiteList(List<String> opCodes) {
+	public List<String> whiteList(List<String> opCodes) {
 		String current;
 		List<String> whiteListed = new ArrayList<String>();
 		
@@ -110,28 +110,30 @@ public class X86Dictionary {
 		for(int i = 0; i < opCodes.size(); i++) {
 			//Store the current entry
 			current = opCodes.get(i);
-			System.out.println(current);
-			current =  current.split(" ")[0];
-			System.out.println(current);
-			if(this.inDictionary(current)) {
-				whiteListed.add(current);
+			if(current.length() != 0) {
+				current =  current.split(" ")[0];
+				if(inDictionary(current)) {
+					whiteListed.add(current);
+				}
 			}
 		}
 		
-		opCodes = whiteListed;
+		return whiteListed;
 	}
 	
 	public boolean inDictionary(String word) {
-		//Get the first letter of the word
-		char firstLetter = word.charAt(0);
-		System.out.println(firstLetter);
-		
-		//Search the appropriate section for the word
-		if(this.diction[firstLetter - 'a'].contains(word)) {
-			return true;
-		} else {
+			//Get the first letter of the word
+			char firstLetter = word.charAt(0);
+
+			//Search the appropriate section for the word
+			if(firstLetter > 96 && firstLetter < 123) {
+				if(diction[firstLetter - 'a'].contains(word.toUpperCase())) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 			return false;
-		}
 	}
 	
 	

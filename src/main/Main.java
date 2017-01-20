@@ -22,9 +22,10 @@ public class Main {
 		readInAssembly(fileName, opCodes);
 		
 		//Whitelist the assembly
-		whiteLister.whiteList(opCodes);
-		/*//Print to screen to test
-		testOutput(opCodes, 2);*/
+		opCodes = whiteLister.whiteList(opCodes);
+		
+		//Print to screen to test
+		testOutput(opCodes, 2);
 	}
 	
 	
