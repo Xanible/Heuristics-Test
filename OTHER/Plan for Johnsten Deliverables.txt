@@ -1,0 +1,5 @@
+Plan for Deliverables for Dr. Johnsten:
+
+1. Identify 10 malware and 10 benign files of comparable size and type.
+2. Check to make sure dictionary contains all needed opcodes listed in the file
+3. Run files through program to replace opcodes with the appropriate index number

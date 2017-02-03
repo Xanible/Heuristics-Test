@@ -2,6 +2,7 @@ package main;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,15 +18,38 @@ public class Main {
 		X86Dictionary whiteLister = new X86Dictionary();
 		
 		//Read in the text file with the assembly code
-		List<String> opCodes = new ArrayList<String>();
-		String fileName = "C:/Users/ColbyAdmin/Java-Workspace/Heuristics-Test/OTHER/2bf35a30a9b3b15b7e931a40084c5c6ae4ae07e01306b493b260bc6c4de54975.asm";
-		readInAssembly(fileName, opCodes);
+		File dirMal = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Original/Malware");
+		File outputDirMal = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Formatted/Malware/");
+		File dirBen = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Original/Benign");
+		File outputDirBen = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Formatted/Benign/");
+		File[] filesMal = dirMal.listFiles();
+		File[] filesBen = dirBen.listFiles();
 		
-		//Whitelist the assembly
-		opCodes = whiteLister.whiteList(opCodes);
+		for (File f : filesMal) {
+			List<String> opCodes = new ArrayList<String>();
+			
+			//Format the opcodes
+			readInAssemblyRADARE2(dirMal.getPath() + File.separator + f.getName(), opCodes);
+			
+			//Whitelist the assembly
+			opCodes = whiteLister.whiteList(opCodes);
+			
+			//Output formatted Disassembly
+			formattedOutput(outputDirMal.getPath(), f.getName(), opCodes, 2);
+		}
 		
-		//Print to screen to test
-		testOutput(opCodes, 2);
+		for (File f : filesBen) {
+			List<String> opCodes = new ArrayList<String>();
+			
+			//Format the opcodes
+			readInAssemblyRADARE2(dirBen.getPath() + File.separator + f.getName(), opCodes);
+			
+			//Whitelist the assembly
+			opCodes = whiteLister.whiteList(opCodes);
+			
+			//Output formatted Disassembly
+			formattedOutput(outputDirBen.getPath(), f.getName(), opCodes, 2);
+		}
 	}
 	
 	
@@ -33,7 +57,19 @@ public class Main {
 	
 	
 	
-	public static void readInAssembly(String fileName, List<String> opCodes) {
+	public static void readInAssemblyRADARE2(String fileName, List<String> opCodes) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			for (String line = br.readLine(); line != null; line = br.readLine()) {
+				opCodes.add(line);
+			}
+			br.close();	
+		} catch (IOException | ArrayIndexOutOfBoundsException e) {
+			System.out.println("ERROR");
+		}
+	}
+	
+	public static void readInAssemblyIDA(String fileName, List<String> opCodes) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			for (String line = br.readLine(); line != null; line = br.readLine()) {
@@ -47,7 +83,7 @@ public class Main {
 		}
 	}
 	
-	public static void testOutput(List<String> opCodes, int rule) {
+	public static void formattedOutput(String outputDir, String filename, List<String> opCodes, int rule) {
 		switch(rule) {
 		case 1:
 			for(int i = 0; i < opCodes.size(); i++) {
@@ -57,7 +93,7 @@ public class Main {
 			break;
 		case 2:
 			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter("C:/Users/ColbyAdmin/Desktop/test.txt"));
+				BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + File.separator + filename));
 				for(int i = 0; i < opCodes.size(); i++) {
 					bw.write(opCodes.get(i));
 					bw.newLine();

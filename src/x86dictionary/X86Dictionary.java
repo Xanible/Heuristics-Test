@@ -1,7 +1,9 @@
 package x86dictionary;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class X86Dictionary {
 	//Variables
 	@SuppressWarnings("unchecked")
 	public ArrayList<String>[] diction = (ArrayList<String>[])new ArrayList[26];
+	private BufferedWriter notInDiction;
+	private ArrayList<String> NID = new ArrayList<String>();
 	
 	//Constructor
 	public X86Dictionary() {
@@ -105,6 +109,12 @@ public class X86Dictionary {
 	public List<String> whiteList(List<String> opCodes) {
 		String current;
 		List<String> whiteListed = new ArrayList<String>();
+		try {
+			notInDiction = new BufferedWriter(new FileWriter("C:/Users/ColbyAdmin/Desktop/NotInDictionary.txt"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//For loop to go through the given list
 		for(int i = 0; i < opCodes.size(); i++) {
@@ -118,6 +128,16 @@ public class X86Dictionary {
 			}
 		}
 		
+		try {
+			for(String s: NID) {
+				notInDiction.write(s);
+				notInDiction.write(System.lineSeparator());
+			}
+			notInDiction.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return whiteListed;
 	}
 	
@@ -130,6 +150,8 @@ public class X86Dictionary {
 				if(diction[firstLetter - 'a'].contains(word.toUpperCase())) {
 					return true;
 				} else {
+					if(!NID.contains(word))
+						NID.add(word);
 					return false;
 				}
 			}
