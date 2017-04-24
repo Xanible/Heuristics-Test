@@ -9,19 +9,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import x86dictionary.X86Dictionary;
+import dalvikdictionary.DalvikDictionary;
 
 public class Main {
 
 	public static void main(String[] args) {
 		//Create the dictionary
-		X86Dictionary whiteLister = new X86Dictionary();
+		DalvikDictionary whiteLister = new DalvikDictionary();
+		//whiteLister.test();
 		
 		//Read in the text file with the assembly code
-		File dirMal = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Original/Malware");
-		File outputDirMal = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Formatted/Malware/");
-		File dirBen = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Original/Benign");
-		File outputDirBen = new File("C:/Users/ColbyAdmin/Desktop/Test Files/Formatted/Benign/");
+		File dirMal = new File("C:/Users/colby/Desktop/ADCT/Malware");
+		File outputDirMal = new File("C:/Users/colby/Desktop/ADCT/Formatted");
+		File dirBen = new File("C:/Users/colby/Desktop/ADCT/Benign");
+		File outputDirBen = new File("C:/Users/colby/Desktop/ADCT/Formatted");
 		File[] filesMal = dirMal.listFiles();
 		File[] filesBen = dirBen.listFiles();
 		
