@@ -19,37 +19,47 @@ public class Main {
 		//whiteLister.test();
 		
 		//Read in the text file with the assembly code
-		File dirMal = new File("C:/Users/colby/Desktop/ADCT/Malware");
-		File outputDirMal = new File("C:/Users/colby/Desktop/ADCT/Formatted");
-		File dirBen = new File("C:/Users/colby/Desktop/ADCT/Benign");
-		File outputDirBen = new File("C:/Users/colby/Desktop/ADCT/Formatted");
+		File dirMal = new File("C:\\Users\\colby\\Google Drive\\Disassembled Android Files\\Disassembly-Malware");
+		File outputDirMal = new File("C:/Users/colby/Desktop/ADCT/Formatted/Malware");
+		File dirBen = new File("C:\\Users\\colby\\Google Drive\\Disassembled Android Files\\Disassembly_Benign");
+		File outputDirBen = new File("C:/Users/colby/Desktop/ADCT/Formatted/Benign");
 		File[] filesMal = dirMal.listFiles();
 		File[] filesBen = dirBen.listFiles();
 		
 		for (File f : filesMal) {
-			List<String> opCodes = new ArrayList<String>();
-			
-			//Format the opcodes
-			readInAssemblyRADARE2(dirMal.getPath() + File.separator + f.getName(), opCodes);
-			
-			//Whitelist the assembly
-			opCodes = whiteLister.whiteList(opCodes);
-			
-			//Output formatted Disassembly
-			formattedOutput(outputDirMal.getPath(), f.getName(), opCodes, 2);
+			if(!f.getName().equals("desktop.ini")) {
+				List<String> opCodes = new ArrayList<String>();
+
+				//Display file name
+				System.out.println(f.getName());
+
+				//Format the opcodes
+				readInAssemblyRADARE2(dirMal.getPath() + File.separator + f.getName(), opCodes);
+
+				//Whitelist the assembly
+				opCodes = whiteLister.whiteList(opCodes);
+
+				//Output formatted Disassembly
+				formattedOutput(outputDirMal.getPath(), f.getName(), opCodes, 3);
+			}
 		}
-		
+
 		for (File f : filesBen) {
-			List<String> opCodes = new ArrayList<String>();
-			
-			//Format the opcodes
-			readInAssemblyRADARE2(dirBen.getPath() + File.separator + f.getName(), opCodes);
-			
-			//Whitelist the assembly
-			opCodes = whiteLister.whiteList(opCodes);
-			
-			//Output formatted Disassembly
-			formattedOutput(outputDirBen.getPath(), f.getName(), opCodes, 2);
+			if(!f.getName().equals("desktop.ini")) {
+				List<String> opCodes = new ArrayList<String>();
+
+				//Display file name
+				System.out.println(f.getName());
+
+				//Format the opcodes
+				readInAssemblyRADARE2(dirBen.getPath() + File.separator + f.getName(), opCodes);
+
+				//Whitelist the assembly
+				opCodes = whiteLister.whiteList(opCodes);
+
+				//Output formatted Disassembly
+				formattedOutput(outputDirBen.getPath(), f.getName(), opCodes, 3);
+			}
 		}
 	}
 	
@@ -98,6 +108,18 @@ public class Main {
 				for(int i = 0; i < opCodes.size(); i++) {
 					bw.write(opCodes.get(i));
 					bw.newLine();
+				}
+				bw.close();
+			} catch (IOException e) {
+				System.out.println("ERROR NUMERO DOS");
+			}
+			break;
+		case 3:
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(outputDir + File.separator + filename));
+				for(int i = 0; i < opCodes.size(); i++) {
+					bw.write(opCodes.get(i));
+					bw.write(" ");
 				}
 				bw.close();
 			} catch (IOException e) {

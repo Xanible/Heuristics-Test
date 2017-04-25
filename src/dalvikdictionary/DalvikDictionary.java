@@ -121,7 +121,13 @@ public class DalvikDictionary {
 			//Store the current entry
 			current = opCodes.get(i);
 			if(current.length() != 0) {
-				current =  current.split(" ")[0];
+				try {
+					current =  current.split(" ")[0];
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.out.println(current);
+					e.printStackTrace();
+					System.exit(1);
+				}
 				if(inDictionary(current)) {
 					whiteListed.add(current);
 				}
