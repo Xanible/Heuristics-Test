@@ -21,7 +21,7 @@ public class DalvikDictionary {
 		//Open dictionary text file
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader("C:/Users/colby/Desktop/ADCT/Dalvik_Dictionary_Sorted.txt"));
+			br = new BufferedReader(new FileReader("C:/Users/colby/Desktop/school/ADCT/Dalvik_Dictionary_Sorted.txt"));
 		} catch (IOException e) {
 			System.out.println("ERROR OPENING DICTIONARY TEXT");
 		}
@@ -110,7 +110,7 @@ public class DalvikDictionary {
 		String current;
 		List<String> whiteListed = new ArrayList<String>();
 		try {
-			notInDiction = new BufferedWriter(new FileWriter("C:/Users/colby/Desktop/ADCT/NotInDictionary.txt"));
+			notInDiction = new BufferedWriter(new FileWriter("C:/Users/colby/Desktop/school/ADCT/NotInDictionary.txt"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -20,12 +20,12 @@ public class Main {
 		
 		//Read in the text file with the assembly code
 		File dirMal = new File("C:\\Users\\colby\\Google Drive\\Disassembled Android Files\\Disassembly-Malware");
-		File outputDirMal = new File("C:/Users/colby/Desktop/ADCT/Formatted/Malware");
+		File outputDirMal = new File("C:/Users/colby/Desktop/androidct/cleaned disassembly/Malware");
 		File dirBen = new File("C:\\Users\\colby\\Google Drive\\Disassembled Android Files\\Disassembly_Benign");
-		File outputDirBen = new File("C:/Users/colby/Desktop/ADCT/Formatted/Benign");
+		File outputDirBen = new File("C:/Users/colby/Desktop/androidct/cleaned disassembly/Benign");
 		File[] filesMal = dirMal.listFiles();
 		File[] filesBen = dirBen.listFiles();
-		
+		/*
 		for (File f : filesMal) {
 			if(!f.getName().equals("desktop.ini")) {
 				List<String> opCodes = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class Main {
 				formattedOutput(outputDirMal.getPath(), f.getName(), opCodes, 3);
 			}
 		}
-
+		*/
 		for (File f : filesBen) {
 			if(!f.getName().equals("desktop.ini")) {
 				List<String> opCodes = new ArrayList<String>();
@@ -72,6 +72,20 @@ public class Main {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			for (String line = br.readLine(); line != null; line = br.readLine()) {
+				char firstLetter = line.charAt(0);
+				
+				switch(firstLetter) {
+				case '+':
+					StringBuilder sb1 = new StringBuilder(line);
+					sb1.deleteCharAt(0);
+					line = sb1.toString();
+					break;
+				case '^':
+					StringBuilder sb2 = new StringBuilder(line);
+					sb2.deleteCharAt(0);
+					line = sb2.toString();
+					break;
+				}
 				opCodes.add(line);
 			}
 			br.close();	
@@ -124,6 +138,7 @@ public class Main {
 				bw.close();
 			} catch (IOException e) {
 				System.out.println("ERROR NUMERO DOS");
+				e.printStackTrace();
 			}
 			break;
 		}
