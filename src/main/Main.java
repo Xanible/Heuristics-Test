@@ -25,7 +25,7 @@ public class Main {
 		File outputDirBen = new File("C:/Users/colby/Desktop/androidct/cleaned disassembly/Benign");
 		File[] filesMal = dirMal.listFiles();
 		File[] filesBen = dirBen.listFiles();
-		/*
+		
 		for (File f : filesMal) {
 			if(!f.getName().equals("desktop.ini")) {
 				List<String> opCodes = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class Main {
 				formattedOutput(outputDirMal.getPath(), f.getName(), opCodes, 3);
 			}
 		}
-		*/
+		
 		for (File f : filesBen) {
 			if(!f.getName().equals("desktop.ini")) {
 				List<String> opCodes = new ArrayList<String>();
