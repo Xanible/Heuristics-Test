@@ -19,10 +19,10 @@ public class Main {
 		//whiteLister.test();
 		
 		//Read in the text file with the assembly code
-		File dirMal = new File("G:\\My Drive\\Disassembled Android Files\\Disassembly_Malware");
-		File outputDirMal = new File("C:/Users/colbyadmin/Desktop/school/androidct/cleaned disassembly/Malware");
-		File dirBen = new File("G:\\My Drive\\Disassembled Android Files\\Disassembly_Benign");
-		File outputDirBen = new File("C:/Users/colbyadmin/Desktop/school/androidct/cleaned disassembly/Benign");
+		File dirMal = new File("C:\\Users\\colby\\Google Drive\\Disassembled Android Files\\Disassembly-Malware");
+		File outputDirMal = new File("C:/Users/colby/Desktop/androidct/cleaned disassembly/Malware");
+		File dirBen = new File("C:\\Users\\colby\\Google Drive\\Disassembled Android Files\\Disassembly_Benign");
+		File outputDirBen = new File("C:/Users/colby/Desktop/androidct/cleaned disassembly/Benign");
 		File[] filesMal = dirMal.listFiles();
 		File[] filesBen = dirBen.listFiles();
 		
